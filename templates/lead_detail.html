@@ -16,22 +16,17 @@
     </style>
 </head>
 <body>
-<h1>This all of our leads</h1>
-<p>This is a example of a template being rendered</p>
-<ul>
+<a href="/leads">
+    Go back to leads
+</a>
+<hr/>
 
+<h1>
+    {{ lead.first_name }}
+</h1>
+<h1>This is the detailed view</h1>
+<p>This persons age is {{ lead.age }}</p>
 
-
-    {% for lead in leads %}
-        <div class="lead">
-            <li>
-                <a href="/leads/{{ lead.pk }}">{{ lead.first_name }} {{ lead.last_name }}</a> Age:{{ lead.age }}
-            </li>
-
-        </div>
-
-    {% endfor %}
-</ul>
 
 </body>
 </html>
