@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Lead
+from .forms import LeadForm
 # Create your views here.
 
 def lead_list(request):
@@ -17,3 +18,9 @@ def lead_detail(request,pk):
     }
 
     return render(request,'lead_detail.html',context)
+def lead_create(request):
+    print(request.POST)
+    context={
+        "form":LeadForm()
+    }
+    return render(request, 'lead_create.html',context)
