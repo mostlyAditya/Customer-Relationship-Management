@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from .models import Lead
-from .forms import LeadForm
+from .models import Lead,Agent
+from .forms import LeadForm,LeadModelForm
 # Create your views here.
 
 def lead_list(request):
@@ -19,8 +19,42 @@ def lead_detail(request,pk):
 
     return render(request,'lead_detail.html',context)
 def lead_create(request):
-    print(request.POST)
+    form=LeadModelForm()     # Initiated a LeadForm object
+
+    if request.method=="POST":
+        form=LeadModelForm(request.POST)         #POST allows for model data to be submitted
+
+    if form.is_valid():         #checked for form validity
+        form.save()             # Created a new instance and saved the model data
+        return redirect('/leads')
     context={
-        "form":LeadForm()
+        "form":form
     }
     return render(request, 'lead_create.html',context)
+
+"""def lead_create(request):
+    form=LeadForm()     # Initiated a LeadForm object
+
+    if request.method=="POST":
+        form=LeadForm(request.POST)         #POST allows for model data to be submitted
+
+    if form.is_valid():         #checked for form validity
+
+
+        first_name=form.cleaned_data["first_name"]        #.cleaned_data to retrieve in a more readable way
+        last_name=form.cleaned_data["last_name"]
+        age=form.cleaned_data["age"]
+        agent=Agent.objects.first()         # Use the first agent as our parameter
+
+        Lead.objects.create(     #Created a lead with the help of a form
+            first_name=first_name,
+            last_name=last_name,
+            age=age,
+            agent=agent
+        )
+
+        return redirect('/leads')
+    context={
+        "form":form
+    }
+    return render(request, 'lead_create.html',context)"""
