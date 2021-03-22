@@ -1,21 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .lead{
-            padding-top: 10px;
-            padding-bottom: 10px;
-            padding-right: 6px;
-            padding-left: 6px;
-            background-color: lavender;
-            margin-top: 10px;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
 <a href="/leads">
     Go back to leads
 </a>
@@ -29,8 +13,7 @@
 <p>The agent responsible for this lead is {{ lead.agent }}</p>
 
 <hr/>
-<a href="/leads/{{ lead.pk }}/update/">Update</a>
-<a href="/leads/{{ lead.pk }}/delete/">Delete</a>
+<a href="{% url 'leads:lead-update' lead.pk  %}">Update</a>
+<a href="{% url 'leads:lead-delete' lead.pk  %}">Delete</a>
 
-</body>
-</html>
+{% endblock content %}
