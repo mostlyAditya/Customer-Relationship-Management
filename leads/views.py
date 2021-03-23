@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Lead,Agent
 from .forms import LeadForm,LeadModelForm
-from django.views.generic import TemplateView,ListView
+from django.views.generic import TemplateView,ListView,DetailView
 # Create your views here.
 
 class LandingPageView(TemplateView):
@@ -23,6 +23,12 @@ def lead_list(request):
         "leads":leads
     }
     return render(request,'lead_list.html',context)
+
+class LeadDetailView(DetailView):
+    template_name = 'lead_detail.html'
+    queryset = Lead.objects.all()
+    context_object_name = 'lead'
+
 def lead_detail(request,pk):
     lead = Lead.objects.get(id=pk)
     context={
