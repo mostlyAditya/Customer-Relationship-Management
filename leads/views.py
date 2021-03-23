@@ -2,10 +2,19 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from .models import Lead,Agent
 from .forms import LeadForm,LeadModelForm
+from django.views.generic import TemplateView,ListView
 # Create your views here.
 
-def landin_page(request):
+class LandingPageView(TemplateView):
+    template_name = 'landing.html'
+
+def landing_page(request):
     return render(request, 'landing.html')
+
+class LeadListView(ListView):
+    template_name = 'lead_list.html'
+    queryset = Lead.objects.all()   #Context default value is object_list
+
 
 def lead_list(request):
     #return HttpResponse("Hello World")
