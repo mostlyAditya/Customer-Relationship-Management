@@ -14,7 +14,7 @@ def landing_page(request):
 class LeadListView(ListView):
     template_name = 'lead_list.html'
     queryset = Lead.objects.all()   #Context default value is object_list
-
+    context_object_name = 'leads'
 
 def lead_list(request):
     #return HttpResponse("Hello World")
