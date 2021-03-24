@@ -25,7 +25,7 @@ def lead_list(request):
     return render(request,'lead_list.html',context)
 
 class LeadDetailView(generic.DetailView):
-    template_name = 'lead_detail.html'generic.
+    template_name = 'lead_detail.html'
     queryset = Lead.objects.all()
     context_object_name = 'lead'
 
@@ -60,7 +60,7 @@ def lead_create(request):
     }
     return render(request, 'lead_create.html',context)
 
-class LeadUpateView(generic.UpdateView):
+class LeadUpdateView(generic.UpdateView):
     template_name = 'lead_update.html'
     form_class = LeadModelForm
     queryset = Lead.objects.all()
@@ -75,7 +75,7 @@ def lead_update(request,pk):
     if request.method == "POST":
         form = LeadModelForm(request.POST,instance=lead)  # POST allows for model data to be submitted
 
-generic.
+
     if form.is_valid():  # checked for form validity
         form.save()  # Created a new instance and saved the model data
         return redirect('/leads')
