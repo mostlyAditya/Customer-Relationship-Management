@@ -1,8 +1,8 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,reverse
 from django.http import HttpResponse
 from .models import Lead,Agent
 from .forms import LeadForm,LeadModelForm
-from django.views.generic import TemplateView,ListView,DetailView
+from django.views.generic import TemplateView,ListView,DetailView,CreateView
 # Create your views here.
 
 class LandingPageView(TemplateView):
@@ -36,6 +36,16 @@ def lead_detail(request,pk):
     }
 
     return render(request,'lead_detail.html',context)
+
+class LeadCreateView(CreateView):
+    template_name = 'lead_create.html'
+    form_class = LeadModelForm
+
+    def get_success_url(self):
+        return reverse("leads:lead-list")
+
+
+
 def lead_create(request):
     form=LeadModelForm()     # Initiated a LeadForm object
 
