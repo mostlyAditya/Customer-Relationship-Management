@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,reverse
 from django.http import HttpResponse
 from .models import Lead,Agent
 from .forms import LeadForm,LeadModelForm
-from django.views.generic import TemplateView,ListView,DetailView,CreateView
+from django.views.generic import TemplateView,ListView,DetailView,CreateView,UpdateView
 # Create your views here.
 
 class LandingPageView(TemplateView):
@@ -59,6 +59,14 @@ def lead_create(request):
         "form":form
     }
     return render(request, 'lead_create.html',context)
+
+class LeadUpateView(UpdateView):
+    template_name = 'lead_update.html'
+    form_class = LeadModelForm
+    queryset = Lead.objects.all()
+
+    def get_success_url(self):
+        return reverse("leads:lead-list")
 
 def lead_update(request,pk):
     lead = Lead.objects.get(id=pk)

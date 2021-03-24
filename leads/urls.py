@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     lead_list,lead_detail,lead_create,lead_update,lead_delete,
-    LeadListView,LeadDetailView,LeadCreateView
+    LeadListView,LeadDetailView,LeadCreateView,LeadUpateView
     )
 
 app_name='leads'
@@ -11,6 +11,6 @@ urlpatterns=[
     #path('<int:pk>/',lead_detail,name='lead-detail'),#Added int: so that pk indentifies only integer as id
     #path('create/',lead_create,name='lead-create'),
     path('create/',LeadCreateView.as_view(),name='lead-create'),
-    path('<int:pk>/update/',lead_update,name='lead-update'),
+    path('<int:pk>/update/',LeadUpateView.as_view(),name='lead-update'),
     path('<int:pk>/delete/',lead_delete,name='lead-delete')
     ]
