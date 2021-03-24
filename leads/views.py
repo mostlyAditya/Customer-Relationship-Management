@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,reverse
 from django.http import HttpResponse
 from .models import Lead,Agent
 from .forms import LeadForm,LeadModelForm
-from django.views.generic import TemplateView,ListView,DetailView,CreateView,UpdateView
+from django.views.generic import TemplateView,ListView,DetailView,CreateView,UpdateView,DeleteView
 # Create your views here.
 
 class LandingPageView(TemplateView):
@@ -84,6 +84,13 @@ def lead_update(request,pk):
         'lead': lead
     }
     return render(request, 'lead_update.html', context)
+
+class LeadDeleteView(DeleteView):
+    template_name = 'lead_delete.html'
+    queryset = Lead.objects.all()
+    def get_success_url(self):
+        return reverse("leads:lead-list")
+
 
 def lead_delete(request,pk):
     lead=Lead.objects.get(id=pk)
