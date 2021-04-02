@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect,reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
@@ -23,7 +24,7 @@ class LandingPageView(generic.TemplateView):
 def landing_page(request):
     return render(request, 'landing.html')
 
-class LeadListView(generic.ListView):
+class LeadListView(LoginRequiredMixin,generic.ListView):
     template_name = 'lead_list.html'
     queryset = Lead.objects.all()   #Context default value is object_list
     context_object_name = 'leads'
@@ -36,7 +37,7 @@ def lead_list(request):
     }
     return render(request,'lead_list.html',context)
 
-class LeadDetailView(generic.DetailView):
+class LeadDetailView(LoginRequiredMixin,generic.DetailView):
     template_name = 'lead_detail.html'
     queryset = Lead.objects.all()
     context_object_name = 'lead'
@@ -49,7 +50,7 @@ def lead_detail(request,pk):
 
     return render(request,'lead_detail.html',context)
 
-class LeadCreateView(generic.CreateView):
+class LeadCreateView(LoginRequiredMixin,generic.CreateView):
     template_name = 'lead_create.html'
     form_class = LeadModelForm
 
@@ -82,7 +83,7 @@ def lead_create(request):
     }
     return render(request, 'lead_create.html',context)
 
-class LeadUpdateView(generic.UpdateView):
+class LeadUpdateView(LoginRequiredMixin,generic.UpdateView):
     template_name = 'lead_update.html'
     form_class = LeadModelForm
     queryset = Lead.objects.all()
@@ -107,7 +108,7 @@ def lead_update(request,pk):
     }
     return render(request, 'lead_update.html', context)
 
-class LeadDeleteView(generic.DeleteView):
+class LeadDeleteView(LoginRequiredMixin,generic.DeleteView):
     template_name = 'lead_delete.html'
     queryset = Lead.objects.all()
     def get_success_url(self):
